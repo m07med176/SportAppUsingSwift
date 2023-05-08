@@ -8,12 +8,28 @@
 import UIKit
 import Kingfisher
 
-class LeagueTableViewController: UITableViewController {
-    var legTitles: [String] = []
-    var legImg: [Any] = []
-    var legCountry: [String] = []
-    var legKey: [Int] = []
-    var data: [[String: Any]] = []
+
+protocol FetchDataView{
+    func fetchResult(result: [LeagueDetails])
+}
+
+class LeagueTableViewController: UITableViewController,FetchDataView {
+    var presenter:LeaguesPresenter?
+    
+    func fetchResult(result: [LeagueDetails]) {
+        /*
+        self.legImg = self.legImg.map{$0 is NSNull ? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png" : $0}
+       */
+    
+    DispatchQueue.main.async {
+        self.leaguesResults = result
+        self.activityIndicator.stopAnimating()
+        self.tableView.reloadData()
+    }
+    }
+
+    
+    var leaguesResults: [LeagueDetails] = []
     
     var sportType : SportsType = SportsType.football
     
@@ -29,19 +45,19 @@ class LeagueTableViewController: UITableViewController {
     
     
     func callData(){
+        
+        presenter = LeaguesPresenter(view: self)
+        presenter?.getLeaguesData(sportType: sportType)
+        
         switch sportType {
         case .football :
             self.title = "Football leagues"
-            fetchData(apiLink: sportsApi.Football.rawValue)
         case .basketball:
             self.title = "Basketball leagues"
-            fetchData(apiLink: sportsApi.Basketball.rawValue)
         case .cricket:
             self.title = "Cricket leagues"
-            fetchCricketData()
         case .tennis:
             self.title = "Tennis leagues"
-            fetchData(apiLink: sportsApi.Tennis.rawValue)
         }
     }
     
@@ -58,17 +74,17 @@ class LeagueTableViewController: UITableViewController {
         cell.contentView.layer.cornerRadius = 20
         cell.contentView.layer.masksToBounds = true
         
-        cell.lableItem.text = legTitles[indexPath.row]
+        cell.lableItem.text = leaguesResults[indexPath.row].leagueName
         
         switch sportType {
             
         case .football :
-            let str = legImg[indexPath.row]
+            let str = leaguesResults[indexPath.row].leagueLogo
             let predicate = NSPredicate(format:"SELF ENDSWITH[c] %@", ".png")
             let result = predicate.evaluate(with: str)
             
             if result{
-                let url = URL(string: str as! String)
+                let url = URL(string: str!)
                 cell.imageItem.kf.setImage(with: url)
             }else{
                 cell.imageItem.image = UIImage(named: ImagesAssets.football.rawValue)
@@ -94,7 +110,7 @@ class LeagueTableViewController: UITableViewController {
         // Navigate to DetailsLeague Screen
         let main = self.storyboard?.instantiateViewController(withIdentifier: "DetailsLeagueViewController") as! DetailsLeagueViewController
         main.sportType = sportType
-        main.legKey = legKey[indexPath.row]
+        main.legKey = leaguesResults[indexPath.row].leagueKey
         self.navigationController?.pushViewController(main, animated: true)
 
     }
@@ -106,7 +122,7 @@ class LeagueTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return legTitles.count
+        return leaguesResults.count
     }
 
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
