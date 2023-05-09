@@ -19,41 +19,22 @@ struct Sports {
 
 class ViewController: UIViewController , UICollectionViewDelegate ,UICollectionViewDelegateFlowLayout , UICollectionViewDataSource  {
 
+    
+    var connectionNetwork:CheckNetworkConnectivity?
+
+    
     // Table Holder
     @IBOutlet var SportCollection: UICollectionView!
     var sportsArr = [Sports]()
     
-    // Check Internet
-    let reachability = try! Reachability()
-
-    @objc func reachabilityChanged(note: Notification) {
-        let reachability = note.object as! Reachability
-
-        switch reachability.connection {
-        case .wifi:
-            print("Wifi Connection")
-        case .cellular:
-            print("Cellular Connection ")
-        case .unavailable:
-            print("No Connection")
-        case .none:
-            print("No Connection")
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
-        do {
-            try reachability.startNotifier()
-        } catch {
-            print("Unable to start notifier")
-        }
+        connectionNetwork = CheckNetworkConnectivity.initConncetion
+        connectionNetwork?.startConncetionObserver()
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        reachability.stopNotifier()
-        NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object: reachability)
     }
     
     
@@ -84,24 +65,22 @@ class ViewController: UIViewController , UICollectionViewDelegate ,UICollectionV
     // ****** Click Node ******* //
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if (reachability.connection != .unavailable){
-            reachInternet(sportType:sportsArr[indexPath.row].sportType)
-        }else {
+        if (connectionNetwork?.getReachablility().connection != .unavailable){
+
+            let table = self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController") as! LeagueTableViewController
+            table.sportType = sportsArr[indexPath.row].sportType
+            self.navigationController?.pushViewController(table, animated: true)
             
+        }else {
+
             let alert = UIAlertController(title: "No Internet Connection", message: "Please check your connection and try again", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel))
             present(alert, animated: true)
         }
         
+
         
         
-        func reachInternet(sportType:SportsType){
-            let table = self.storyboard?.instantiateViewController(withIdentifier: "LeagueTableViewController") as! LeagueTableViewController
-            table.sportType = sportType
-            if (reachability.connection != .unavailable){
-                self.navigationController?.pushViewController(table, animated: true)
-            }
-        }
     }
     
     

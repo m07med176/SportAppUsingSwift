@@ -17,8 +17,8 @@ protocol NetworkProtocol{
 
 
 class CheckNetworkConnectivity{
-    static let connection  = CheckNetworkConnectivity()
-    private let reachability = try! Reachability()
+    static let initConncetion  = CheckNetworkConnectivity()
+    private let reachability:Reachability!
 
     @objc func reachabilityChanged(note: Notification) {
         let reachability = note.object as! Reachability
@@ -36,6 +36,7 @@ class CheckNetworkConnectivity{
     }
     
     private init(){
+        reachability = try! Reachability()
         startConncetionObserver()
     }
     
@@ -60,6 +61,8 @@ class CheckNetworkConnectivity{
     
 }
 
+
+
 class NetworkService<K:Codable> : NetworkProtocol {
     typealias T = K
 
@@ -68,6 +71,8 @@ class NetworkService<K:Codable> : NetworkProtocol {
     func fetchResult(complitionHandler: @escaping (Result<K, Error>) -> Void,url:URL!){
 
 
+        connection = CheckNetworkConnectivity.initConncetion
+        
         if connection?.getReachablility().connection == .unavailable{
             complitionHandler(.failure(CallNetworkException.noConnectionError(message: "There is no Internet Conncection")))
             return
