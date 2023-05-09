@@ -18,8 +18,8 @@ enum ImagesAssets:String{
 }
 
 
-enum CallNetworkException:Error{
-    case noConnectionError(message:String)
-    case mainNetworkError(message:String)
+enum CallDataException:Error{
+    case noFeedError(message:String)
+    case mainError(message:String)
     case noDateError(message:String)
 }

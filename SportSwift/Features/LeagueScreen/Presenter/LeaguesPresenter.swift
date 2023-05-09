@@ -24,7 +24,7 @@ class LeaguesPresenter{
             case .success(let success):
                 let data = success.result
                 if data.count == 0{
-                    self.view?.fetchError(error: CallNetworkException.noDateError(message:" Sorry no data here"))
+                    self.view?.fetchError(error: CallDataException.noDateError(message:" Sorry no data here"))
 
                 }else{
                     self.view?.fetchResult(result: success.result)
@@ -34,7 +34,7 @@ class LeaguesPresenter{
                 return
                 
             case .failure(let failure):
-                self.view?.fetchError(error: failure as! CallNetworkException)
+                self.view?.fetchError(error: failure as! CallDataException)
                 return
             }
 

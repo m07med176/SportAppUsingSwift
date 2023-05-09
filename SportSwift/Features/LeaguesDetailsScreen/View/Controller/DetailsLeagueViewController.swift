@@ -199,18 +199,17 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
             
             let team = dataDetails?[indexPath.row]
             let homeTeamImg = team?.home_team_logo ?? ""
-            storyBoard.teeamImg = String(homeTeamImg)
+//            storyBoard.teeamImg = String(homeTeamImg)
             if sportType == .cricket {
                 let homeTeamKey = team?.first_player_key ?? 0
-                storyBoard.teamKey = String(homeTeamKey)
+//                storyBoard.teamKey = String(homeTeamKey)
             }
             else {
                 let homeTeamKey = team?.home_team_key ?? 0
-                storyBoard.teamKey = String(homeTeamKey)
+//                storyBoard.teamKey = String(homeTeamKey)
             }
             
-            
-            
+           /*
             switch sportType {
             case .football :
                 storyBoard.sportType = "football"
@@ -229,6 +228,9 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
                 storyBoard.teamIndex = 3
                 
             }
+            */
+            
+            
             self.navigationController?.pushViewController(storyBoard, animated: true)
         }
     }

@@ -11,7 +11,7 @@ import Kingfisher
 
 protocol LeagueDelegateView {
     func fetchResult(result:[LeagueDetails] )
-    func fetchError(error:CallNetworkException )
+    func fetchError(error:CallDataException )
 }
 
 class LeagueTableViewController: UITableViewController,LeagueDelegateView {
@@ -34,15 +34,15 @@ class LeagueTableViewController: UITableViewController,LeagueDelegateView {
         }
     }
     
-    func fetchError(error: CallNetworkException) {
+    func fetchError(error: CallDataException) {
         let alert = UIAlertController(title: "Internet Connection Error", message: "Please check your connection and try again", preferredStyle: .alert)
         
         switch error {
-        case .mainNetworkError(let message):
+        case .mainError(let message):
             alert.title = message
 
             break
-        case .noConnectionError(let message):
+        case .noFeedError(let message):
             alert.title = message
 
             break

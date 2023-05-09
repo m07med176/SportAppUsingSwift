@@ -74,11 +74,11 @@ class NetworkService<K:Codable> : NetworkProtocol {
         connection = CheckNetworkConnectivity.initConncetion
         
         if connection?.getReachablility().connection == .unavailable{
-            complitionHandler(.failure(CallNetworkException.noConnectionError(message: "There is no Internet Conncection")))
+            complitionHandler(.failure(CallDataException.noFeedError(message: "There is no Internet Conncection")))
             return
         }
         guard let newUrl = url else{
-            complitionHandler(.failure(CallNetworkException.mainNetworkError(message: "Invalid URL")))
+            complitionHandler(.failure(CallDataException.mainError(message: "Invalid URL")))
             return
         }
         
@@ -92,7 +92,7 @@ class NetworkService<K:Codable> : NetworkProtocol {
                 complitionHandler(.success(res))
             } catch let error {
                  
-                complitionHandler(.failure(CallNetworkException.mainNetworkError(message: error.localizedDescription)))
+                complitionHandler(.failure(CallDataException.mainError(message: error.localizedDescription)))
             }
         }
         

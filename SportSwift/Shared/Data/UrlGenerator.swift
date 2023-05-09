@@ -67,6 +67,14 @@ class UrlSportBuilder{
         url.append("&leagueId=\(id)")
         return self
     }
+    
+    func appendTeamID(id:Int)->UrlSportBuilder{
+        
+        url.append("&teamId=\(id)")
+        return self
+    }
+    
+    
     func toString()->String{
         return url
     }

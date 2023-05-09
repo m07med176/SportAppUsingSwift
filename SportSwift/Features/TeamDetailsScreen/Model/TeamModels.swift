@@ -5,31 +5,28 @@
 //  Created by Mohamed on 04/05/2023.
 //
 
-class TeamResult:Decodable{
-    var team_name:String?
-    var team_logo:String?
-    var player_name:String?//tennis
-    var player_logo:String?//tennis
-}
-class TeamResponse:Decodable{
-    var success:Int?
-    var result:[TeamResult]
+struct TeamsDetails: Codable {
+    let success: Int?
+    let result: [TeamDetailsResult]
 }
 
+struct TeamDetailsResult: Codable {
+    let team_key: Int?
+    let team_name: String?
+    let team_logo: String?
+    let players: [Player]
+}
 
-class Player : Decodable{
-    var player_name: String?
-    var player_number: String?
-    var player_image: String?
-}
-class coach:Decodable {
-    var coach_name:String?
-}
-class TeamResultNew:Decodable{
-    var players: [Player]
-    var coaches:[coach]
-}
-struct TeamResponseNew:Decodable{
-    var success:Int?
-    var result:[TeamResultNew]
+struct Player: Codable {
+    let player_key: Int?
+    let player_name: String?
+    let player_number: String?
+    let player_country: String?
+    let player_type: String?
+    let player_age: String?
+    let player_match_played: String?
+    let player_goals: String?
+    let player_yellow_cards: String?
+    let player_red_cards: String?
+    let player_image: String?
 }
