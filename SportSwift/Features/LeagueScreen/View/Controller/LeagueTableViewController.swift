@@ -9,24 +9,16 @@ import UIKit
 import Kingfisher
 
 
-protocol FetchDataView{
-    func fetchResult(result: [LeagueDetails])
+protocol LeagueDelegateView {
+    func fetchResult(result:[LeagueDetails] )
+    func fetchError(error:CallNetworkException )
 }
 
-class LeagueTableViewController: UITableViewController,FetchDataView {
+class LeagueTableViewController: UITableViewController,LeagueDelegateView {
+
+    
     var presenter:LeaguesPresenter?
     
-    func fetchResult(result: [LeagueDetails]) {
-        /*
-        self.legImg = self.legImg.map{$0 is NSNull ? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png" : $0}
-       */
-    
-    DispatchQueue.main.async {
-        self.leaguesResults = result
-        self.activityIndicator.stopAnimating()
-        self.tableView.reloadData()
-    }
-    }
 
     
     var leaguesResults: [LeagueDetails] = []
@@ -34,6 +26,40 @@ class LeagueTableViewController: UITableViewController,FetchDataView {
     var sportType : SportsType = SportsType.football
     
     
+    func fetchResult(result: [LeagueDetails]) {
+        DispatchQueue.main.async {
+            self.leaguesResults = result
+            self.activityIndicator.stopAnimating()
+            self.tableView.reloadData()
+        }
+    }
+    
+    func fetchError(error: CallNetworkException) {
+        let alert = UIAlertController(title: "Internet Connection Error", message: "Please check your connection and try again", preferredStyle: .alert)
+        
+        switch error {
+        case .mainNetworkError(let message):
+            alert.title = message
+
+            break
+        case .noConnectionError(let message):
+            alert.title = message
+
+            break
+        case .noDateError(let message):
+            alert.title = message
+            break
+        
+        }
+        DispatchQueue.main.async {
+            self.leaguesResults = []
+            self.activityIndicator.stopAnimating()
+            self.tableView.reloadData()
+        }
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        present(alert, animated: true)
+    }
     // Loading Action
     var activityIndicator = UIActivityIndicatorView(style: .large)
     func loadingAction(){

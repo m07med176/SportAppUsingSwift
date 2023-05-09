@@ -8,12 +8,6 @@
 import Foundation
 
 
-enum SportsType:String{
-    case football = "football"
-    case basketball = "basketball"
-    case cricket = "cricket"
-    case tennis = "tennis"
-}
 
 
 enum ImagesAssets:String{
@@ -21,4 +15,11 @@ enum ImagesAssets:String{
     case basketball = "basketball"
     case cricket = "cricket"
     case tennis = "tennis"
+}
+
+
+enum CallNetworkException:Error{
+    case noConnectionError(message:String)
+    case mainNetworkError(message:String)
+    case noDateError(message:String)
 }

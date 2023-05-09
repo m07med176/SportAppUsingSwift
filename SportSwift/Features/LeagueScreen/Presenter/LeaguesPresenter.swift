@@ -8,16 +8,40 @@
 import Foundation
 
 class LeaguesPresenter{
-    var view:FetchDataView?
-    required init(view: FetchDataView? = nil) {
+    var view:LeagueDelegateView?
+    required init(view: LeagueDelegateView? = nil) {
         self.view = view
     }
     
-    func getLeaguesData(sportType:SportsType){
-        NetworkService.fetchResult(complitionHandler: {(res) in
-            let items = res?.result ?? [];
-            self.view?.fetchResult(result: items)
-        }, sportType: sportType)
+    func getLeaguesData(sportType:SportsType) {
+        let url = UrlSportBuilder(sportType: sportType,methodType: .Leagues).toURL()
+        let network = NetworkService<League>()
+    
+        network.fetchResult(complitionHandler: { (res) in
+            
+
+            switch res {
+            case .success(let success):
+                let data = success.result
+                if data.count == 0{
+                    self.view?.fetchError(error: CallNetworkException.noDateError(message:" Sorry no data here"))
+
+                }else{
+                    self.view?.fetchResult(result: success.result)
+
+                }
+                
+                return
+                
+            case .failure(let failure):
+                self.view?.fetchError(error: failure as! CallNetworkException)
+                return
+            }
+
+
+            
+        },url: url!)
+
     }
     
 }
