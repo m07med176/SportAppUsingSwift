@@ -15,7 +15,6 @@
 		D913EDDF2A0418C000E27193 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D913EDDE2A0418C000E27193 /* Assets.xcassets */; };
 		D913EDE22A0418C000E27193 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D913EDE02A0418C000E27193 /* LaunchScreen.storyboard */; };
 		D913EDEF2A04497700E27193 /* TeamModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D913EDEE2A04497700E27193 /* TeamModels.swift */; };
-		D913EDF12A044D4E00E27193 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D913EDF02A044D4E00E27193 /* Network.swift */; };
 		D913EDF82A04752700E27193 /* sport.json in Resources */ = {isa = PBXBuildFile; fileRef = D913EDF72A04752700E27193 /* sport.json */; };
 		D913EDFB2A0475F800E27193 /* SplachViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D913EDFA2A0475F800E27193 /* SplachViewController.swift */; };
 		D91E02052A067D4100D61481 /* UpdateCollectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91E02042A067D4100D61481 /* UpdateCollectionData.swift */; };
@@ -54,7 +53,6 @@
 		D913EDE12A0418C000E27193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D913EDE32A0418C000E27193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D913EDEE2A04497700E27193 /* TeamModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModels.swift; sourceTree = "<group>"; };
-		D913EDF02A044D4E00E27193 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		D913EDF72A04752700E27193 /* sport.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sport.json; path = ../../../../../../Downloads/sport.json; sourceTree = "<group>"; };
 		D913EDFA2A0475F800E27193 /* SplachViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplachViewController.swift; sourceTree = "<group>"; };
 		D91E02042A067D4100D61481 /* UpdateCollectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCollectionData.swift; sourceTree = "<group>"; };
@@ -148,30 +146,20 @@
 		D913EDEB2A04490100E27193 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				D9DAD5332A057F5F00083C65 /* TeamDetailsScreen */,
-				D9DAD51C2A0557C700083C65 /* LeaguesDetailsScreen */,
-				D9DAD5142A05436100083C65 /* LeagueScreen */,
 				D913EDF52A04704A00E27193 /* SportCollectionScreen */,
+				D9DAD5142A05436100083C65 /* LeagueScreen */,
+				D9DAD51C2A0557C700083C65 /* LeaguesDetailsScreen */,
+				D9DAD5332A057F5F00083C65 /* TeamDetailsScreen */,
 				D913EDF42A04702600E27193 /* FavoriteScreen */,
 				D913EDF22A046F9800E27193 /* SplachScreen */,
-				D913EDEC2A04494C00E27193 /* TeamDetails */,
 			);
 			path = Features;
-			sourceTree = "<group>";
-		};
-		D913EDEC2A04494C00E27193 /* TeamDetails */ = {
-			isa = PBXGroup;
-			children = (
-				D913EDED2A04496400E27193 /* Model */,
-			);
-			path = TeamDetails;
 			sourceTree = "<group>";
 		};
 		D913EDED2A04496400E27193 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				D913EDEE2A04497700E27193 /* TeamModels.swift */,
-				D913EDF02A044D4E00E27193 /* Network.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -366,6 +354,7 @@
 		D9DAD5332A057F5F00083C65 /* TeamDetailsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				D913EDED2A04496400E27193 /* Model */,
 				D9DAD5342A057F6800083C65 /* Controller */,
 			);
 			path = TeamDetailsScreen;
@@ -506,7 +495,6 @@
 				D962491E2A09483A00528E1B /* LeaguesModels.swift in Sources */,
 				D9DAD5362A057F7C00083C65 /* TeamDetailsViewController.swift in Sources */,
 				D913EDD72A0418BF00E27193 /* ViewController.swift in Sources */,
-				D913EDF12A044D4E00E27193 /* Network.swift in Sources */,
 				D962492B2A09711C00528E1B /* NetworkService.swift in Sources */,
 				D91E02052A067D4100D61481 /* UpdateCollectionData.swift in Sources */,
 				D96249282A0957E300528E1B /* ModelsLeaguesDetails.swift in Sources */,
