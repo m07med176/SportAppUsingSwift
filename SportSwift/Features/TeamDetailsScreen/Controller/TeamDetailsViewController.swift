@@ -11,13 +11,13 @@ protocol TeamDetailsDelegateView{
     func fetchResult(result:[TeamDetailsResult])
     func fetchError(error:CallDataException )
 }
+
 class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate ,TeamDetailsDelegateView {
 
 
     @IBOutlet weak var playersTable: UITableView!
     @IBOutlet weak var teamImg: UIImageView!
     @IBOutlet weak var teamName: UILabel!
-    
     @IBOutlet weak var favButton: UIButton!
     
     var presenter:TeamDetailsPresenter?
@@ -26,9 +26,10 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
     var teamId:Int = 0
     var playesList:[Player] = []
     var team:FavoriteTeam?
-    
+    var isFavoriteVisisble = true
     // Loading Action
     var activityIndicator = UIActivityIndicatorView(style: .large)
+    
     func loadingAction(){
         activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.center = view.center
@@ -41,6 +42,9 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
         presenter = TeamDetailsPresenter(view: self)
         loadingAction()
         presenter?.fetchTeamData(sportType: sportType, teamId: teamId)
+        if isFavoriteVisisble == false {
+            favButton.isHidden = true
+        }
     }
     
     
@@ -48,7 +52,12 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
         DispatchQueue.main.sync {
             if result.count != 0 {
                 let teamDetails = result[0]
-                team = FavoriteTeam(key: teamDetails.team_key ?? 0, name: teamDetails.team_name ?? "", logo: teamDetails.team_logo ?? "", sport: sportType.rawValue )
+                team = FavoriteTeam(
+                    key: teamDetails.team_key ?? 0,
+                    name: teamDetails.team_name ?? "",
+                    logo: teamDetails.team_logo ?? "",
+                    sport: sportType.rawValue
+                )
                 
                 teamName.text = teamDetails.team_name
                 let url = URL(string: (teamDetails.team_logo)!)

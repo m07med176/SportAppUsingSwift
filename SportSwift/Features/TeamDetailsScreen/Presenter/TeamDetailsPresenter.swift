@@ -47,9 +47,9 @@ class TeamDetailsPresenter{
         }catch CallDataException.mainError(let message){
             view?.fetchError(error: CallDataException.mainError(message: message))
         }catch CallDataException.noFeedError(let message){
-            view?.fetchError(error: CallDataException.noFeedError(message: message))
+            print(message)
         }catch CallDataException.noDateError(let message){
-            view?.fetchError(error: CallDataException.noDateError(message: message))
+                print(message)
         }catch{
             view?.fetchError(error: CallDataException.mainError(message: "Error occurred"))
         }

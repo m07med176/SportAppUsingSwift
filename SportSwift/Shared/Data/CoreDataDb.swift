@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 
 class CoreDataDb{
-    let entityName = "FavoriteTeam"
+    let entityName = "Favorite"
     
     static let initCoreData=CoreDataDb()
     var context: NSManagedObjectContext!
@@ -82,21 +82,23 @@ class CoreDataDb{
         return status
     }
     
-    func deleteData(item:FavoriteTeam) throws {
-        let fetchReq=NSFetchRequest<NSManagedObject>(entityName: entityName)
-        let predicate=NSPredicate(format: "key==%@", item.key)
-        fetchReq.predicate=predicate
-        do{
-            empObj = try context?.fetch(fetchReq)
-            context?.delete(empObj![0])
-            try context?.save()
-        }
-        catch let error as NSError{
+    
+    
+    func deleteData(item: FavoriteTeam) throws {
+        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: entityName)
+        let predicate = NSPredicate(format: "name == %@", item.name)
+        fetchReq.predicate = predicate
+        
+        do {
+            let empObj = try context?.fetch(fetchReq)
+            if let object = empObj?.first {
+                context?.delete(object)
+                try context?.save()
+            }
+        } catch let error as NSError {
             print(error.localizedDescription)
             throw CallDataException.mainError(message: error.localizedDescription)
         }
-        
     }
-    
 }
 

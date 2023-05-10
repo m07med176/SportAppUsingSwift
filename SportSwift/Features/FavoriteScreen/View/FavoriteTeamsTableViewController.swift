@@ -23,7 +23,6 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = FavoritePresenter(view: self)
-//        presenter?.fetchData()
     }
 
   
@@ -34,13 +33,66 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
     }
     
     func fetchError(error: CallDataException) {
+        let alert = UIAlertController(title: "Data Error", message: "There is an error of fetching data", preferredStyle: .alert)
         
+        switch error {
+        case .mainError(let message):
+            alert.title = message
+
+            break
+        case .noFeedError(let message):
+            alert.title = message
+            
+
+            break
+        case .noDateError(let message):
+            alert.title = message
+            favoriteItem = []
+            favoriteTable.reloadData()
+            break
+        
+        }
+        
+        
+
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        present(alert, animated: true)
     }
   
+    override func viewDidAppear(_ animated: Bool) {
+        presenter?.fetchData()
+    }
 
     
     
-    
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let favoritePlayer = favoriteItem[indexPath.row]
+        
+        let teamScreen = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
+        
+        switch favoritePlayer.sport{
+            case SportsType.football.rawValue:
+                teamScreen.sportType = SportsType.football
+            
+            case SportsType.tennis.rawValue:
+                teamScreen.sportType = SportsType.tennis
+
+            case SportsType.basketball.rawValue:
+                teamScreen.sportType = SportsType.basketball
+
+            case SportsType.cricket.rawValue:
+                teamScreen.sportType = SportsType.cricket
+
+        default:
+            teamScreen.sportType = SportsType.football
+        }
+        
+        teamScreen.teamId = favoritePlayer.key
+        teamScreen.isFavoriteVisisble = false
+        
+        self.navigationController?.pushViewController(teamScreen, animated: true)
+    }
     
     // DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,16 +102,13 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = favoriteTable.dequeueReusableCell(withIdentifier: "favoritecell") as! FavoriteTeamsTableViewCell
-        //        cell.c
-        let favoritePlayer = favoriteItem[indexPath.row]
 
+        let favoritePlayer = favoriteItem[indexPath.row]
         cell.FavoriteTeamName.text = favoritePlayer.name
-        
-        //MARK: - make the cell look round
+        cell.FavoriteTeamImage.kf.setImage(with: URL(string: favoritePlayer.logo ))
+
         cell.FavoriteTeamView.layer.cornerRadius = cell.contentView.frame.height / 2.5
-        //make the image look round
         cell.FavoriteTeamImage.layer.cornerRadius = cell.FavoriteTeamImage.frame.height / 2.5
-        
         return cell
     }
     
@@ -75,13 +124,8 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { _ in
                 
-                // Remove the player name from favorites
-           
-                
                 self.presenter?.deleteData(item: favoritePlayer)
-                // Delete the row from the table view with an animation
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                self.favoriteTable.reloadData()
+                self.presenter?.fetchData()
             }))
             
             // Present the alert controller
@@ -89,7 +133,7 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
         }}
     
     
-    //Delegate
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
