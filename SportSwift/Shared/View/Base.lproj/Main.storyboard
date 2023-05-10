@@ -66,6 +66,131 @@
             </objects>
             <point key="canvasLocation" x="2973.2824427480914" y="-27.464788732394368"/>
         </scene>
+        <!--Team Details View Controller-->
+        <scene sceneID="n4c-IS-9EO">
+            <objects>
+                <viewController storyboardIdentifier="TeamDetailsViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eij-IE-GE9" customClass="TeamDetailsViewController" customModule="SportSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Kls-mq-Gwk">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c4C-MJ-W9l">
+                                <rect key="frame" x="0.0" y="163" width="393" height="193"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="USX-Wy-OyJ">
+                                <rect key="frame" x="0.0" y="378" width="393" height="474"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="527" id="V6Z-31-Jux"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="playersTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerscell" rowHeight="113" id="gWx-Zy-bpb" customClass="TeamTableViewCell" customModule="SportSwift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="113"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gWx-Zy-bpb" id="akM-AK-c94">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="113"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m0P-ow-jjH">
+                                                    <rect key="frame" x="20" y="11" width="140" height="91"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="m0P-ow-jjH" secondAttribute="height" multiplier="20:13" id="uoP-rz-qrx"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drj-iV-Cq8">
+                                                    <rect key="frame" x="168" y="64" width="205" height="38"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="38" id="6A7-O9-22f"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvc-5H-f0K">
+                                                    <rect key="frame" x="168" y="16" width="205" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                            <constraints>
+                                                <constraint firstItem="m0P-ow-jjH" firstAttribute="height" secondItem="akM-AK-c94" secondAttribute="height" multiplier="0.80531" id="4cp-eg-2XU"/>
+                                                <constraint firstItem="drj-iV-Cq8" firstAttribute="bottom" secondItem="m0P-ow-jjH" secondAttribute="bottom" id="9Cu-CS-ce7"/>
+                                                <constraint firstItem="qvc-5H-f0K" firstAttribute="leading" secondItem="m0P-ow-jjH" secondAttribute="trailing" constant="8" symbolic="YES" id="AZv-W2-8rJ"/>
+                                                <constraint firstItem="drj-iV-Cq8" firstAttribute="trailing" secondItem="qvc-5H-f0K" secondAttribute="trailing" id="FGD-Eo-9ls"/>
+                                                <constraint firstItem="m0P-ow-jjH" firstAttribute="top" secondItem="akM-AK-c94" secondAttribute="topMargin" id="GhN-Ai-v5c"/>
+                                                <constraint firstItem="qvc-5H-f0K" firstAttribute="trailing" secondItem="akM-AK-c94" secondAttribute="trailingMargin" id="I5I-nV-eWe"/>
+                                                <constraint firstItem="qvc-5H-f0K" firstAttribute="top" secondItem="akM-AK-c94" secondAttribute="topMargin" constant="5" id="NxN-m6-ZRF"/>
+                                                <constraint firstItem="drj-iV-Cq8" firstAttribute="top" secondItem="qvc-5H-f0K" secondAttribute="bottom" constant="8" symbolic="YES" id="SP3-FK-11j"/>
+                                                <constraint firstItem="drj-iV-Cq8" firstAttribute="leading" secondItem="qvc-5H-f0K" secondAttribute="leading" id="cyb-rL-abU"/>
+                                                <constraint firstItem="m0P-ow-jjH" firstAttribute="leading" secondItem="akM-AK-c94" secondAttribute="leadingMargin" id="f0U-7s-owR"/>
+                                                <constraint firstItem="m0P-ow-jjH" firstAttribute="centerY" secondItem="akM-AK-c94" secondAttribute="centerY" id="lwW-Yc-IOO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="playerImg" destination="m0P-ow-jjH" id="8Po-UZ-Len"/>
+                                            <outlet property="playerName" destination="qvc-5H-f0K" id="C0H-84-PLu"/>
+                                            <outlet property="playerNumber" destination="drj-iV-Cq8" id="Nof-pG-WSj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="eij-IE-GE9" id="hc9-08-sFd"/>
+                                    <outlet property="delegate" destination="eij-IE-GE9" id="flj-2r-ZWp"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bT0-3k-y4g">
+                                <rect key="frame" x="339" y="93.333333333333329" width="39" height="40.333333333333329"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="22"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="favButtonAction:" destination="eij-IE-GE9" eventType="touchUpInside" id="B4n-kf-MfR"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jjL-0p-bpN">
+                                <rect key="frame" x="16" y="93" width="303" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kGt-fh-R1E"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstItem="kGt-fh-R1E" firstAttribute="trailing" secondItem="bT0-3k-y4g" secondAttribute="trailing" constant="15" id="0qj-si-YH8"/>
+                            <constraint firstItem="c4C-MJ-W9l" firstAttribute="centerX" secondItem="Kls-mq-Gwk" secondAttribute="centerX" id="3Xe-Da-UiR"/>
+                            <constraint firstAttribute="trailing" secondItem="USX-Wy-OyJ" secondAttribute="trailing" id="3xV-wa-m3E"/>
+                            <constraint firstItem="c4C-MJ-W9l" firstAttribute="top" secondItem="jjL-0p-bpN" secondAttribute="bottom" constant="29" id="7zb-Wp-fDh"/>
+                            <constraint firstItem="c4C-MJ-W9l" firstAttribute="trailing" secondItem="kGt-fh-R1E" secondAttribute="trailing" id="FA3-v6-bZc"/>
+                            <constraint firstItem="c4C-MJ-W9l" firstAttribute="leading" secondItem="USX-Wy-OyJ" secondAttribute="leading" id="JC7-94-9hX"/>
+                            <constraint firstItem="c4C-MJ-W9l" firstAttribute="leading" secondItem="kGt-fh-R1E" secondAttribute="leading" id="Khc-UP-3KE"/>
+                            <constraint firstItem="c4C-MJ-W9l" firstAttribute="height" secondItem="Kls-mq-Gwk" secondAttribute="height" multiplier="0.226526" id="Nzp-Sz-S6b"/>
+                            <constraint firstAttribute="bottom" secondItem="USX-Wy-OyJ" secondAttribute="bottom" id="UeH-9r-fTO"/>
+                            <constraint firstItem="USX-Wy-OyJ" firstAttribute="firstBaseline" secondItem="c4C-MJ-W9l" secondAttribute="baseline" constant="8" symbolType="layoutAnchor" id="W6K-dT-b9U"/>
+                            <constraint firstItem="kGt-fh-R1E" firstAttribute="trailing" secondItem="bT0-3k-y4g" secondAttribute="trailing" constant="15" id="eoH-rb-Hl0"/>
+                            <constraint firstItem="USX-Wy-OyJ" firstAttribute="leading" secondItem="Kls-mq-Gwk" secondAttribute="leading" id="fNQ-FE-ySZ"/>
+                            <constraint firstItem="bT0-3k-y4g" firstAttribute="centerY" secondItem="jjL-0p-bpN" secondAttribute="centerY" id="jrB-qE-9cD"/>
+                            <constraint firstItem="c4C-MJ-W9l" firstAttribute="trailing" secondItem="USX-Wy-OyJ" secondAttribute="trailing" id="nVd-CR-Ry8"/>
+                            <constraint firstAttribute="bottom" secondItem="USX-Wy-OyJ" secondAttribute="bottom" id="t7F-yw-MuJ"/>
+                            <constraint firstItem="bT0-3k-y4g" firstAttribute="leading" secondItem="jjL-0p-bpN" secondAttribute="trailing" constant="20" id="yi6-GZ-onk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="favButton" destination="bT0-3k-y4g" id="dDE-YW-pOb"/>
+                        <outlet property="playersTable" destination="USX-Wy-OyJ" id="zXd-ux-t7z"/>
+                        <outlet property="teamImg" destination="c4C-MJ-W9l" id="pUq-2Y-ces"/>
+                        <outlet property="teamName" destination="jjL-0p-bpN" id="Dep-yR-IbA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="skr-td-14p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6126" y="-56"/>
+        </scene>
         <!--Favorite Teams Table View Controller-->
         <scene sceneID="bsT-qw-Bny">
             <objects>
@@ -359,21 +484,6 @@
             </objects>
             <point key="canvasLocation" x="4547.3282442748086" y="-33.098591549295776"/>
         </scene>
-        <!--Team Details View Controller-->
-        <scene sceneID="0Ec-ux-28h">
-            <objects>
-                <viewController storyboardIdentifier="TeamDetailsViewController" id="yle-QF-m1P" customClass="TeamDetailsViewController" customModule="SportSwift" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="IGW-Lq-eBK">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="1xC-Z2-oIu"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="em0-v2-hlV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5324.4274809160306" y="-55.633802816901408"/>
-        </scene>
         <!--Sport-->
         <scene sceneID="tTJ-Wf-gX8">
             <objects>
@@ -436,6 +546,7 @@
     </scenes>
     <resources>
         <image name="football" width="512" height="512"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
         <image name="heart.circle" catalog="system" width="128" height="123"/>
         <image name="sportscourt.fill" catalog="system" width="128" height="83"/>
         <systemColor name="opaqueSeparatorColor">
@@ -446,6 +557,9 @@
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
