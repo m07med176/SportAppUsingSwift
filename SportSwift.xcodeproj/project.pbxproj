@@ -36,11 +36,8 @@
 		D9DAD51B2A05499900083C65 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DAD51A2A05499900083C65 /* CollectionViewCell.swift */; };
 		D9DAD51F2A0558A100083C65 /* DetailsLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DAD51E2A0558A100083C65 /* DetailsLeagueViewController.swift */; };
 		D9DAD5252A056A6C00083C65 /* UpComingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DAD5232A056A6C00083C65 /* UpComingCollectionViewCell.swift */; };
-		D9DAD5262A056A6C00083C65 /* UpComingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DAD5242A056A6C00083C65 /* UpComingCollectionViewCell.xib */; };
 		D9DAD5292A056A9D00083C65 /* TeamsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DAD5272A056A9D00083C65 /* TeamsCollectionViewCell.swift */; };
-		D9DAD52A2A056A9D00083C65 /* TeamsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DAD5282A056A9D00083C65 /* TeamsCollectionViewCell.xib */; };
 		D9DAD5312A056B1000083C65 /* LatestResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DAD52F2A056B1000083C65 /* LatestResultCollectionViewCell.swift */; };
-		D9DAD5322A056B1000083C65 /* LatestResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DAD5302A056B1000083C65 /* LatestResultCollectionViewCell.xib */; };
 		D9DAD5362A057F7C00083C65 /* TeamDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DAD5352A057F7C00083C65 /* TeamDetailsViewController.swift */; };
 		F031C9D73133FF28BF424B5B /* Pods_SportSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D30880500F77316EFBD7D7E /* Pods_SportSwift.framework */; };
 /* End PBXBuildFile section */
@@ -80,11 +77,8 @@
 		D9DAD51A2A05499900083C65 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		D9DAD51E2A0558A100083C65 /* DetailsLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsLeagueViewController.swift; sourceTree = "<group>"; };
 		D9DAD5232A056A6C00083C65 /* UpComingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpComingCollectionViewCell.swift; sourceTree = "<group>"; };
-		D9DAD5242A056A6C00083C65 /* UpComingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpComingCollectionViewCell.xib; sourceTree = "<group>"; };
 		D9DAD5272A056A9D00083C65 /* TeamsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsCollectionViewCell.swift; sourceTree = "<group>"; };
-		D9DAD5282A056A9D00083C65 /* TeamsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamsCollectionViewCell.xib; sourceTree = "<group>"; };
 		D9DAD52F2A056B1000083C65 /* LatestResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestResultCollectionViewCell.swift; sourceTree = "<group>"; };
-		D9DAD5302A056B1000083C65 /* LatestResultCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LatestResultCollectionViewCell.xib; sourceTree = "<group>"; };
 		D9DAD5352A057F7C00083C65 /* TeamDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,7 +270,6 @@
 		D96249182A0942B100528E1B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D96249222A09573600528E1B /* UI */,
 				D9DAD51D2A0557D400083C65 /* Controller */,
 			);
 			path = View;
@@ -305,16 +298,6 @@
 				D96249202A09491D00528E1B /* LeaguesPresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		D96249222A09573600528E1B /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				D9DAD5242A056A6C00083C65 /* UpComingCollectionViewCell.xib */,
-				D9DAD5282A056A9D00083C65 /* TeamsCollectionViewCell.xib */,
-				D9DAD5302A056B1000083C65 /* LatestResultCollectionViewCell.xib */,
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		D96249232A09575500528E1B /* Collections */ = {
@@ -479,12 +462,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D913EDE22A0418C000E27193 /* LaunchScreen.storyboard in Resources */,
-				D9DAD52A2A056A9D00083C65 /* TeamsCollectionViewCell.xib in Resources */,
 				D913EDDF2A0418C000E27193 /* Assets.xcassets in Resources */,
-				D9DAD5322A056B1000083C65 /* LatestResultCollectionViewCell.xib in Resources */,
 				D913EDF82A04752700E27193 /* sport.json in Resources */,
 				D913EDDA2A0418BF00E27193 /* Main.storyboard in Resources */,
-				D9DAD5262A056A6C00083C65 /* UpComingCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -43,22 +43,7 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     let teamID = (identifier:"team",nibName:"TeamsCollectionViewCell")
     let latestID = (identifier:"latest",nibName:"LatestResultCollectionViewCell")
     
-    
-    
-    func registerCollection(){
-        let nibUpcoming = UINib(nibName: upcomingID.nibName, bundle: nil)
-        upComingCollection.register(nibUpcoming, forCellWithReuseIdentifier: upcomingID.identifier)
-        
-        let nibTeam = UINib(nibName: teamID.nibName, bundle: nil)
-        teamCollection.register(nibTeam, forCellWithReuseIdentifier: teamID.identifier)
-        
-        let nibLatest = UINib(nibName:latestID.nibName, bundle: nil)
-        latestCollection.register(nibLatest, forCellWithReuseIdentifier: latestID.identifier)
-        
-    }
-    
- 
-    
+
     func fetchResultFixture(result: [ResultFixture]) {
         DispatchQueue.main.async {
             self.dataDetailsFixture = result
@@ -114,10 +99,6 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = DetailsLeaguesPresenter(view: self)
-
-        // Register Collections
-        registerCollection()
-        
         // Call Data
         callData()
     }
@@ -155,7 +136,7 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
         
         if collectionView == upComingCollection{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcoming", for: indexPath) as! UpComingCollectionViewCell
-            var team = dataDetailsFixture?[indexPath.row]
+            let team = dataDetailsFixture?[indexPath.row]
             cell.layer.borderColor = UIColor.darkGray.cgColor
             cell.layer.borderWidth = 0.5
             switch sportType {
@@ -191,7 +172,7 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
             cell.layer.borderColor = UIColor.darkGray.cgColor
             cell.layer.borderWidth = 0.3
             
-            var team = dataDetailsLivescore?[indexPath.row]
+        let team = dataDetailsLivescore?[indexPath.row]
             switch sportType {
                 // FootBall
             case .football:

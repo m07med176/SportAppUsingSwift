@@ -12,6 +12,8 @@ class LatestResultCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var eventDateLabel: UILabel!
     @IBOutlet weak var homeTeamLabel: UILabel!
     
+    @IBOutlet weak var eventTimeLable: UIView!
+        
     @IBOutlet weak var homeTeamImageView: UIImageView!
     
     @IBOutlet weak var awayTeamImageView: UIImageView!
