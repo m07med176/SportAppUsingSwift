@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LatestResultCollectionViewCell: UICollectionViewCell,UpdateCollectionData {
+class LatestResultCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var eventFinalResultLabel: UILabel!
     @IBOutlet weak var eventDateLabel: UILabel!
     @IBOutlet weak var homeTeamLabel: UILabel!
@@ -23,7 +23,7 @@ class LatestResultCollectionViewCell: UICollectionViewCell,UpdateCollectionData 
         // Initialization code
     }
     
-    func updateData(item: Results) {
+    func updateData(item: LivescoreResult) {
         self.layer.cornerRadius = 25
         
         homeTeamLabel.text = item.event_home_team

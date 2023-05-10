@@ -59,14 +59,27 @@ class CoreDataDb{
                     sport: emp.value(forKey: "sport") as? String ?? "football"))
             }
         }
+        
         catch let error as NSError{
             print(error.localizedDescription)
             throw CallDataException.mainError(message: error.localizedDescription)
         }
+        
         if arr.count == 0{
             throw CallDataException.noDateError(message: "No Data")
         }
         return arr;
+    }
+    
+    
+    func isExistItem(item:FavoriteTeam) throws ->Bool{
+        var status:Bool = false
+        let data  = try fetchData() ?? []
+        for fav in data {
+            status = fav.key == item.key
+            break
+        }
+        return status
     }
     
     func deleteData(item:FavoriteTeam) throws {

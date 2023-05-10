@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UpComingCollectionViewCell: UICollectionViewCell ,UpdateCollectionData{
+class UpComingCollectionViewCell: UICollectionViewCell{
     @IBOutlet weak var awayImageView: UIImageView!
     @IBOutlet weak var homeImageView: UIImageView!
     
@@ -20,7 +20,7 @@ class UpComingCollectionViewCell: UICollectionViewCell ,UpdateCollectionData{
         // Initialization code
     }
     
-    func updateData(item:Results){
+    func updateData(item:ResultFixture){
         
         self.layer.cornerRadius = 25
         

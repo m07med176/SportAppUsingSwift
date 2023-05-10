@@ -10,13 +10,15 @@ import UIKit
 
 
 protocol DetailsLeaguesDelegateView{
-    func fetchResult(result: [Results])
+    func fetchResultFixture(result: [ResultFixture])
+    func fetchResultLivescore(result: [LivescoreResult])
+    func fetchErrorFixture(error:CallDataException )
+    func fetchErrorLivescore(error:CallDataException )
 }
 
 class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout,DetailsLeaguesDelegateView {
-    
-    
 
+    
     
     var presenter:DetailsLeaguesPresenter?
     // Screen Title
@@ -29,7 +31,8 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     
     
     // Response
-    var dataDetails : [Results]?
+    var dataDetailsFixture : [ResultFixture]?
+    var dataDetailsLivescore : [LivescoreResult]?
 
     // Flags
     var sportType : SportsType = SportsType.football
@@ -54,17 +57,58 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
         
     }
     
-    func fetchResult(result: [Results]) {
+ 
+    
+    func fetchResultFixture(result: [ResultFixture]) {
         DispatchQueue.main.async {
-            self.dataDetails = result
+            self.dataDetailsFixture = result
             self.upComingCollection.reloadData()
-            self.latestCollection.reloadData()
             self.teamCollection.reloadData()
         }
     }
     
+    func fetchResultLivescore(result: [LivescoreResult]) {
+        DispatchQueue.main.async {
+            self.dataDetailsLivescore = result
+            self.latestCollection.reloadData()
+        }
+    }
+    
+    func fetchErrorFixture(error: CallDataException) {
+        switch error {
+        case .mainError(let message):
+            print(message)
+            break
+        case .noFeedError(let message):
+            print(message)
+            break
+        case .noDateError(let message):
+            print(message)
+            break
+        
+        }
+    }
+    
+    func fetchErrorLivescore(error: CallDataException) {
+
+        switch error {
+        case .mainError(let message):
+            print(message)
+            break
+        case .noFeedError(let message):
+            print(message)
+            break
+        case .noDateError(let message):
+            print(message)
+            break
+        
+        }
+
+    }
+    
     func callData(){
-        presenter?.fetchData(sportType: sportType,leagueId: self.legKey)
+        presenter?.fetchDataFixture(sportType: sportType,leagueId: self.legKey)
+        presenter?.fetchDataLivesocre(sportType: sportType)
     }
     
     override func viewDidLoad() {
@@ -83,10 +127,10 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        // cofiguration cell for Teams
-        if collectionView == teamCollection {
+  
+        if collectionView == teamCollection{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "team", for: indexPath) as! TeamsCollectionViewCell
-            let team = dataDetails?[indexPath.row]
+            let team = dataDetailsFixture?[indexPath.row]
             
             switch sportType {
                 // FootBall
@@ -105,16 +149,18 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
                 teamTitle.text = "Players"
                 let url = URL(string: (team?.event_first_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg")
                 cell.teamImage.kf.setImage(with: url)
-       
+                
             }
-               
+            
             return cell
         }
         
-        // cofiguration  cell for upComing Event
-        if collectionView == upComingCollection {
+        
+        
+        
+        if collectionView == upComingCollection{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcoming", for: indexPath) as! UpComingCollectionViewCell
-            let team = dataDetails?[indexPath.row]
+            var team = dataDetailsFixture?[indexPath.row]
             cell.layer.borderColor = UIColor.darkGray.cgColor
             cell.layer.borderWidth = 0.5
             switch sportType {
@@ -123,68 +169,69 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
                 break
             case .basketball :
                 // BasketBall
-                team?.home_team_logo = (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-                team?.away_team_logo  = (team?.away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+                //                team?.home_team_logo = (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+                //                team?.away_team_logo  = (team?.away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
                 break
             case .cricket:
                 //Cricket
-                team?.home_team_logo = (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-                team?.away_team_logo  = (team?.event_away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+                //                team?.home_team_logo = (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+                //                team?.away_team_logo  = (team?.event_away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
                 break
                 
             case .tennis :
                 //tennis
-                team?.home_team_logo = (team?.event_first_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
-                team?.away_team_logo  = (team?.event_second_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
+                //                team?.home_team_logo = (team?.event_first_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
+                //                team?.away_team_logo  = (team?.event_second_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
                 break
-    
+                
                 
             }
             
-            cell.updateData(item: team ?? Results())
+            cell.updateData(item: team ?? ResultFixture())
             return cell
         }
         
-        
-        
-        // cofiguration  cell for Latest Results
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latest", for: indexPath) as! LatestResultCollectionViewCell
-        // let team = dataDetails?[indexPath.row + 20 ]
-        cell.layer.borderColor = UIColor.darkGray.cgColor
-        cell.layer.borderWidth = 0.3
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latest", for: indexPath) as! LatestResultCollectionViewCell
+            // let team = dataDetails?[indexPath.row + 20 ]
+            cell.layer.borderColor = UIColor.darkGray.cgColor
+            cell.layer.borderWidth = 0.3
+            
+            var team = dataDetailsLivescore?[indexPath.row]
+            switch sportType {
+                // FootBall
+            case .football:
+                
+//                team?.home_team_logo =  (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+//                team?.away_team_logo =  (team?.away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+                cell.updateData(item: team!)
+                
+                // Basketball
+            case .basketball:
+//                team?.home_team_logo =  (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+//                team?.away_team_logo =  (team?.event_away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+                cell.updateData(item: team!)
+                
+                //Cricket
+            case .cricket:
+//                team?.home_team_logo =  (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+//                team?.away_team_logo =  (team?.event_away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+                cell.updateData(item: team!)
+                
+                //tennis
+            case .tennis:
 
-        /*
-        switch sportType {
-            // FootBall
-        case .football:
-            
-            team?.home_team_logo =  (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-            team?.away_team_logo =  (team?.away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-            cell.updateData(item: team ?? Results())
-            
-            // Basketball
-        case .basketball:
-            team?.home_team_logo =  (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-            team?.away_team_logo =  (team?.event_away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-            cell.updateData(item: team ?? Results())
-            
-            //Cricket
-        case .cricket:
-            team?.home_team_logo =  (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-            team?.away_team_logo =  (team?.event_away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-            cell.updateData(item: team ?? Results())
-            
-            //tennis
-        case .tennis:
-
-            team?.home_team_logo =  (team?.event_first_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
-            team?.away_team_logo =  (team?.event_second_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
-            cell.updateData(item: team ?? Results())
-            
+//                team?.home_team_logo =  (team?.event_first_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
+//                team?.away_team_logo =  (team?.event_second_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
+                cell.updateData(item: team!)
+                
+        
+       
         }
-        */
+
         
         return cell
+
+     
     }
     
     
@@ -197,7 +244,7 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
         if(collectionView == teamCollection){
             let storyBoard = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
             
-            let team = dataDetails?[indexPath.row]
+            let team = dataDetailsFixture?[indexPath.row]
             let homeTeamImg = team?.home_team_logo ?? ""
 //            storyBoard.teeamImg = String(homeTeamImg)
             if sportType == .cricket {
@@ -242,15 +289,15 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
         
         switch collectionView{
         case teamCollection:
-            print(dataDetails?.count ?? 1)
-            return dataDetails?.count ?? 1
+            print(dataDetailsFixture?.count ?? 1)
+            return dataDetailsFixture?.count ?? 1
             
         case upComingCollection:
-            return dataDetails?.count ?? 0
+            return dataDetailsFixture?.count ?? 0
             //            return homeTeam.count
         
         case latestCollection:
-            return dataDetails?.count ?? 0
+            return dataDetailsFixture?.count ?? 0
             
         default:
             return 0
@@ -261,6 +308,7 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }

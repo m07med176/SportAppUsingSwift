@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TeamDetailsDelegateView{
-    func fetchResult(result:TeamDetailsResult)
+    func fetchResult(result:[TeamDetailsResult])
     func fetchError(error:CallDataException )
 }
 class TeamDetailsViewController: UIViewController,TeamDetailsDelegateView {
@@ -27,7 +27,7 @@ class TeamDetailsViewController: UIViewController,TeamDetailsDelegateView {
     }
     
     
-    func fetchResult(result: TeamDetailsResult) {
+    func fetchResult(result: [TeamDetailsResult]) {
   
     }
     

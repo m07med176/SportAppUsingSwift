@@ -42,8 +42,6 @@ class FavoritePresenter{
     }
     
     func deleteData(item:FavoriteTeam){
-        
-        
         do{
             try db?.deleteData(item: item)
             

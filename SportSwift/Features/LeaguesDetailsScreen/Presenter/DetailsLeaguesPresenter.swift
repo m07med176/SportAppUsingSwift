@@ -15,44 +15,53 @@ class DetailsLeaguesPresenter{
         self.view = view
     }
     
-    func fetchData(sportType:SportsType,leagueId:Int){
-        var url:URL?
-        switch sportType{
-        case .basketball:
-            url = UrlSportBuilder(sportType: sportType,methodType: .Fixtures)
-                .appendDateFromTo()
-                .toURL()
-            break
-        case .football:
-            url = UrlSportBuilder(sportType: sportType,methodType: .Fixtures)
-                .appendDateFromTo()
-                .appendLeagueID(id: leagueId)
-                .toURL()
-            break
-        case .cricket:
-            url = UrlSportBuilder(sportType: sportType,methodType: .Fixtures)
-                .appendDateFromTo()
-                .toURL()
-            break
-        case .tennis:
-            url = UrlSportBuilder(sportType: sportType,methodType: .Fixtures)
-                .appendDateFromTo()
-                .toURL()
-            break
+    func fetchDataFixture(sportType:SportsType,leagueId:Int){
+        let url  = UrlSportBuilder(sportType: sportType,methodType: .Fixtures)
+            .appendDateFromTo()
+            .appendLeagueID(id: leagueId)
+            .toURL()
         
-        }
-        
-        
-        
+        let network = NetworkService<Fixture>()
 
+        network.fetchResult(complitionHandler: { (res) in
+            switch res {
+            case .success(let success):
+                let data = success.result
+                self.view?.fetchResultFixture(result: success.result)
+                return
+                
+            case .failure(let failure):
+                self.view?.fetchErrorFixture(error: failure as! CallDataException)
+                return
+            }
+            
+        },url: url!)
         
-//        let network = NetworkService<DetailsResponse>()
-//
-//        network.fetchResult(complitionHandler: { (res) in
-//            let items = res.result
-//            self.view?.fetchResult(result: items ?? [])
-//
-//        },url: url!)
 
     }
+    
+    
+    func fetchDataLivesocre(sportType:SportsType){
+        let url  = UrlSportBuilder(sportType: sportType,methodType: .Livescore)
+            .toURL()
+        
+        let network = NetworkService<Livescore>()
+        network.fetchResult(complitionHandler: { (res) in
+            switch res {
+            case .success(let success):
+                let data = success.result
+                self.view?.fetchResultLivescore(result: success.result)
+                return
+                
+            case .failure(let failure):
+                self.view?.fetchErrorLivescore(error: failure as! CallDataException)
+                return
+            }
+            
+        },url: url!)
+
+    }
+    
+    
+    
 }
