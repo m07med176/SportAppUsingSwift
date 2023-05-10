@@ -26,24 +26,64 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
     var teamId:Int = 0
     var playesList:[Player] = []
     
+    // Loading Action
+    var activityIndicator = UIActivityIndicatorView(style: .large)
+    func loadingAction(){
+        activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.center = view.center
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = TeamDetailsPresenter(view: self)
+        loadingAction()
         presenter?.fetchTeamData(sportType: sportType, teamId: teamId)
     }
     
     
     func fetchResult(result: [TeamDetailsResult]) {
-        if result.count != 0{
-            playesList = result[0].players
-            playersTable.reloadData()
+        DispatchQueue.main.sync {
+            if result.count != 0 {
+                let teamDetails = result[0]
+                teamName.text = teamDetails.team_name
+                let url = URL(string: (teamDetails.team_logo)!)
+                teamImg.kf.setImage(with: url)
+                playesList = teamDetails.players
+                self.activityIndicator.stopAnimating()
+                playersTable.reloadData()
+            }
+      
         }
-  
+        
     }
     
     func fetchError(error: CallDataException) {
-    
+        let alert = UIAlertController(title: "Internet Connection Error", message: "Please check your connection and try again", preferredStyle: .alert)
+        
+        switch error {
+        case .mainError(let message):
+            alert.title = message
+
+            break
+        case .noFeedError(let message):
+            alert.title = message
+
+            break
+        case .noDateError(let message):
+            alert.title = message
+            break
+        
+        }
+        DispatchQueue.main.async {
+            self.playesList = []
+            self.activityIndicator.stopAnimating()
+            self.playersTable.reloadData()
+        }
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        present(alert, animated: true)
         
     }
     
@@ -59,34 +99,35 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
         cell.contentView.layer.masksToBounds = true
         
         let player =  playesList[indexPath.row]
-//        cell.playerName.text = player?.player_name ?? "Unknown"
-//        cell.playerNumber.text = player?.player_number ?? "Unknown"
+        cell.playerName.text = player.player_name
+        cell.playerNumber.text = player.player_number
         
         //MARK: - predicate
-//        let string = player?.player_image
-//        let predicate = NSPredicate(format:"SELF ENDSWITH[c] %@", ".jpg")
-//        let result = predicate.evaluate(with: string)
-        //        print(result) // true
-        //MARK: - kingfisher
-//        if result{
-//            let url = URL(string: (player?.player_image)!)
-//            cell.playerImg.kf.setImage(with: url)
-//        }else
-//        {
-//            switch teamIndex {
-//            case 0 :
-//                cell.playerImg.image = UIImage(named: "football")
-//            case 1 :
-//                cell.playerImg.image = UIImage(named: "NewBasketball")
-//            case 2 :
-//                cell.playerImg.image = UIImage(named: "NewCricket")
-//            case 3 :
-//                cell.playerImg.image = UIImage(named: "tennis")
-//            default:
-//                break
-//            }
-//        }
-        //MARK: - make the cell look round
+        let string = player.player_image
+        let predicate = NSPredicate(format:"SELF ENDSWITH[c] %@", ".jpg")
+        let result = predicate.evaluate(with: string)
+                print(result) // true
+        
+        if result{
+            let url = URL(string: (player.player_image)!)
+            cell.playerImg.kf.setImage(with: url)
+        }else
+        {
+            switch sportType {
+            case .football:
+                cell.playerImg.image = UIImage(named: "football")
+
+            case .basketball:
+                cell.playerImg.image = UIImage(named: "basketball")
+
+            case .cricket:
+                cell.playerImg.image = UIImage(named: "cricket")
+
+            case .tennis:
+                cell.playerImg.image = UIImage(named: "tennis")
+
+            }
+        }
         
         return cell
     }

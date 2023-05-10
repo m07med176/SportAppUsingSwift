@@ -237,43 +237,13 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if(collectionView == teamCollection){
-            let storyBoard = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
+            let teamScreen = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
             
             let team = dataDetailsFixture?[indexPath.row]
-            let homeTeamImg = team?.home_team_logo ?? ""
-//            storyBoard.teeamImg = String(homeTeamImg)
-            if sportType == .cricket {
-                let homeTeamKey = team?.first_player_key ?? 0
-//                storyBoard.teamKey = String(homeTeamKey)
-            }
-            else {
-                let homeTeamKey = team?.home_team_key ?? 0
-//                storyBoard.teamKey = String(homeTeamKey)
-            }
+            teamScreen.sportType = sportType
+            teamScreen.teamId = team?.home_team_key ?? 0
             
-           /*
-            switch sportType {
-            case .football :
-                storyBoard.sportType = "football"
-                storyBoard.teamIndex = 0
-                
-            case .basketball :
-                storyBoard.sportType = "basketball"
-                storyBoard.teamIndex = 1
-                
-            case .cricket :
-                storyBoard.sportType = "cricket"
-                storyBoard.teamIndex = 2
-                
-            case .tennis :
-                storyBoard.sportType = "tennis"
-                storyBoard.teamIndex = 3
-                
-            }
-            */
-            
-            
-            self.navigationController?.pushViewController(storyBoard, animated: true)
+            self.navigationController?.pushViewController(teamScreen, animated: true)
         }
     }
     
