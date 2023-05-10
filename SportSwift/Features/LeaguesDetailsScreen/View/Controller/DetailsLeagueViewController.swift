@@ -133,23 +133,18 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
             let team = dataDetailsFixture?[indexPath.row]
             
             switch sportType {
-                // FootBall
-                
             case .football:
                 let url = URL(string: (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png")
-                //cell.teamImage.kf.setImage(with: url)
+                cell.teamImage.kf.setImage(with: url)
                 
-                // Basketball and Cricket
             case .basketball , .cricket:
                 let url = URL(string: (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png")
                 cell.teamImage.kf.setImage(with: url)
                 
-                //tennis
             case .tennis:
                 teamTitle.text = "Players"
                 let url = URL(string: (team?.event_first_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg")
                 cell.teamImage.kf.setImage(with: url)
-                
             }
             
             return cell
@@ -169,7 +164,7 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
                 break
             case .basketball :
                 // BasketBall
-                //                team?.home_team_logo = (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
+//                team?.home_team_logo = (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
                 //                team?.away_team_logo  = (team?.away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
                 break
             case .cricket:
