@@ -25,6 +25,7 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
     var sportType:SportsType = SportsType.football
     var teamId:Int = 0
     var playesList:[Player] = []
+    var team:FavoriteTeam?
     
     // Loading Action
     var activityIndicator = UIActivityIndicatorView(style: .large)
@@ -47,12 +48,25 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
         DispatchQueue.main.sync {
             if result.count != 0 {
                 let teamDetails = result[0]
+                team = FavoriteTeam(key: teamDetails.team_key ?? 0, name: teamDetails.team_name ?? "", logo: teamDetails.team_logo ?? "", sport: sportType.rawValue )
+                
                 teamName.text = teamDetails.team_name
                 let url = URL(string: (teamDetails.team_logo)!)
                 teamImg.kf.setImage(with: url)
                 playesList = teamDetails.players
                 self.activityIndicator.stopAnimating()
                 playersTable.reloadData()
+                
+                guard let teamFavorite = team else{
+                    return
+                }
+                
+                if presenter?.isExistItem(item: teamFavorite) == true{
+                    self.favButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                }else{
+                    self.favButton.setImage(UIImage(systemName: "heart"), for: .normal)
+
+                }
             }
       
         }
@@ -89,6 +103,19 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
     
     @IBAction func favButtonAction(_ sender: Any) {
                
+        guard let teamFavorite = team else{
+            return
+        }
+        if (favButton.configuration?.image == UIImage(systemName: "heart.fill")){
+            self.favButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            // Deletes
+            presenter?.deleteData(item: teamFavorite)
+            
+        } else if (favButton.configuration?.image == UIImage(systemName: "heart")){
+            self.favButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            // Insert
+            presenter?.insertFavoriteItem(item: teamFavorite)
+        }
     }
     
     
