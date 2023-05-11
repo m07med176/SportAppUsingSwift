@@ -6,6 +6,7 @@
 //
 
 import Foundation
+typealias ResponseOperationTeam = ([TeamDetailsResult])-> Void
 
 
 class TeamDetailsPresenter{
@@ -13,10 +14,16 @@ class TeamDetailsPresenter{
     var db:CoreDataDb?
     
     var view:TeamDetailsDelegateView?
+    
     required init(view: TeamDetailsDelegateView? = nil) {
         db = CoreDataDb.initCoreData
-        
         self.view = view
+    }
+    
+    var lambdaResponse: ResponseOperationTeam?
+
+    required init(response: @escaping ResponseOperationTeam){
+        self.lambdaResponse = response
     }
     
     
@@ -29,6 +36,10 @@ class TeamDetailsPresenter{
             switch res {
             case .success(let success):
                 self.view?.fetchResult(result: success.result)
+                if let response = self.lambdaResponse {
+                    self.lambdaResponse!(success.result)
+                }
+                
                 return
                 
             case .failure(let failure):

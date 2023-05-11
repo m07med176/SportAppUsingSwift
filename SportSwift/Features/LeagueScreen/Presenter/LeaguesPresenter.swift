@@ -7,10 +7,17 @@
 
 import Foundation
 
+typealias ResponseOperationLeague = ([LeagueDetails])-> Void
+
 class LeaguesPresenter{
     var view:LeagueDelegateView?
     required init(view: LeagueDelegateView? = nil) {
         self.view = view
+    }
+    
+    var lambdaResponse: ResponseOperationLeague?
+    required init(response: @escaping ResponseOperationLeague){
+        self.lambdaResponse = response
     }
     
     func getLeaguesData(sportType:SportsType) {
@@ -28,6 +35,9 @@ class LeaguesPresenter{
 
                 }else{
                     self.view?.fetchResult(result: success.result)
+                    if let response = self.lambdaResponse {
+                        self.lambdaResponse!(success.result)
+                    }
 
                 }
                 
