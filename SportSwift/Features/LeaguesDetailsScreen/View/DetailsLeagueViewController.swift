@@ -77,11 +77,11 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
             
-            self.teamErrorMessage.isHidden = true
-            self.UpComingErrorMessage.isHidden = true
-            
-            self.teamCollection.isHidden = false
+            self.teamErrorMessage.isHidden = false
             self.UpComingErrorMessage.isHidden = false
+            
+            self.teamCollection.isHidden = true
+            self.upComingCollection.isHidden = true
             
             switch error {
             case .mainError(let message):
@@ -108,8 +108,8 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     func fetchErrorLivescore(error: CallDataException) {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
-            self.latestErrorMessage.isHidden = true
-            self.latestCollection.isHidden = false
+            self.latestErrorMessage.isHidden = false
+            self.latestCollection.isHidden = true
 
             
             switch error {
@@ -278,15 +278,13 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
         
         switch collectionView{
         case teamCollection:
-            print(dataDetailsFixture?.count ?? 1)
-            return dataDetailsFixture?.count ?? 1
+            return dataDetailsFixture?.count ?? 0
             
         case upComingCollection:
             return dataDetailsFixture?.count ?? 0
-            //            return homeTeam.count
-        
+            
         case latestCollection:
-            return dataDetailsFixture?.count ?? 0
+            return dataDetailsLivescore?.count ?? 0
             
         default:
             return 0

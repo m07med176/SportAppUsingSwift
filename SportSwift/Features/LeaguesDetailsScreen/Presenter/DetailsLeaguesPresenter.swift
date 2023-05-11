@@ -50,7 +50,7 @@ class DetailsLeaguesPresenter{
             switch res {
             case .success(let success):
                 let data = success.result
-                self.view?.fetchResultLivescore(result: success.result)
+                self.view?.fetchResultLivescore(result: data)
                 return
                 
             case .failure(let failure):
