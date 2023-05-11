@@ -11,13 +11,10 @@ class LatestResultCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var eventFinalResultLabel: UILabel!
     @IBOutlet weak var eventDateLabel: UILabel!
     @IBOutlet weak var homeTeamLabel: UILabel!
-    
-    @IBOutlet weak var eventTimeLable: UIView!
-        
+            
     @IBOutlet weak var homeTeamImageView: UIImageView!
-    
+    @IBOutlet weak var eventTimeLable: UILabel!
     @IBOutlet weak var awayTeamImageView: UIImageView!
-    
     @IBOutlet weak var awayTeamLabel: UILabel!
     
     override func awakeFromNib() {
@@ -31,7 +28,8 @@ class LatestResultCollectionViewCell: UICollectionViewCell {
         homeTeamLabel.text = item.event_home_team
         awayTeamLabel.text = item.event_away_team
         eventDateLabel.text = item.event_date
-        eventFinalResultLabel.text = item.event_time
+        eventFinalResultLabel.text = item.event_final_result
+        eventTimeLable.text = item.event_time
         
         homeTeamImageView.kf.setImage(with: URL(string: item.home_team_logo ?? ""))
         homeTeamImageView.kf.indicatorType = .activity

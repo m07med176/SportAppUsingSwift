@@ -261,7 +261,7 @@
 		D96249172A0942A700528E1B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D9DAD5152A05437600083C65 /* Controller */,
+				D9DAD5162A05439500083C65 /* LeagueTableViewController.swift */,
 				D9DAD5182A05441500083C65 /* SingleSportTableViewCell.swift */,
 			);
 			path = View;
@@ -330,14 +330,6 @@
 				D96249172A0942A700528E1B /* View */,
 			);
 			path = LeagueScreen;
-			sourceTree = "<group>";
-		};
-		D9DAD5152A05437600083C65 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				D9DAD5162A05439500083C65 /* LeagueTableViewController.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		D9DAD51C2A0557C700083C65 /* LeaguesDetailsScreen */ = {

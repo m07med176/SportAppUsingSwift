@@ -334,7 +334,7 @@
                                             <outlet property="awayTeamLabel" destination="FtT-fN-kGL" id="EGZ-Da-mr6"/>
                                             <outlet property="eventDateLabel" destination="i3z-P2-FHS" id="qHj-yk-BE8"/>
                                             <outlet property="eventFinalResultLabel" destination="uAh-Le-8ha" id="lpR-Mh-Ncw"/>
-                                            <outlet property="eventTimeLable" destination="7Q6-a7-nT1" id="m5F-CD-WBh"/>
+                                            <outlet property="eventTimeLable" destination="CMs-0J-4kO" id="Lpr-Rb-xef"/>
                                             <outlet property="homeTeamImageView" destination="wWB-fF-Agf" id="Y4b-Vm-o4F"/>
                                             <outlet property="homeTeamLabel" destination="ssN-Rt-5p5" id="2C0-KP-R4D"/>
                                         </connections>
@@ -363,47 +363,78 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t4J-da-WMD">
+                                <rect key="frame" x="16" y="655" width="361" height="21.666666666666629"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUQ-Yh-Blo">
+                                <rect key="frame" x="16" y="101" width="361" height="21.666666666666671"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kcu-ry-OhL">
+                                <rect key="frame" x="11" y="351" width="366" height="21.666666666666686"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YUz-EZ-ylx"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="YUz-EZ-ylx" firstAttribute="trailing" secondItem="t4J-da-WMD" secondAttribute="trailing" constant="16" id="18L-b6-TOG"/>
                             <constraint firstItem="IhS-dH-huI" firstAttribute="height" secondItem="n9a-Cu-k0E" secondAttribute="height" multiplier="0.267606" constant="-13.000312000000008" id="3lo-xn-8HB"/>
                             <constraint firstItem="YUz-EZ-ylx" firstAttribute="trailing" secondItem="8iO-Ni-isJ" secondAttribute="trailing" constant="110.67" id="5AI-M6-BBy"/>
                             <constraint firstItem="AVM-cI-QDv" firstAttribute="height" secondItem="n9a-Cu-k0E" secondAttribute="height" multiplier="0.172535" id="890-oI-fQ7"/>
+                            <constraint firstItem="YUz-EZ-ylx" firstAttribute="trailing" secondItem="vUQ-Yh-Blo" secondAttribute="trailing" constant="16" id="9zC-fR-0jP"/>
                             <constraint firstItem="AVM-cI-QDv" firstAttribute="bottom" secondItem="YUz-EZ-ylx" secondAttribute="bottom" id="D9N-ks-yzZ"/>
+                            <constraint firstItem="vUQ-Yh-Blo" firstAttribute="leading" secondItem="8iO-Ni-isJ" secondAttribute="trailing" constant="-266.33333333333331" id="DbS-91-t3W"/>
+                            <constraint firstItem="vUQ-Yh-Blo" firstAttribute="top" secondItem="8iO-Ni-isJ" secondAttribute="bottom" constant="3.6666666666666714" id="Dqs-j8-yku"/>
                             <constraint firstItem="AVM-cI-QDv" firstAttribute="trailing" secondItem="YUz-EZ-ylx" secondAttribute="trailing" id="Ewi-Ej-yQ1"/>
                             <constraint firstItem="Y2w-dt-yt6" firstAttribute="leading" secondItem="YUz-EZ-ylx" secondAttribute="leading" id="GTY-J0-COs"/>
                             <constraint firstItem="mDq-V9-xJx" firstAttribute="leading" secondItem="YUz-EZ-ylx" secondAttribute="leading" constant="156" id="Idi-sr-nug"/>
                             <constraint firstItem="IhS-dH-huI" firstAttribute="trailing" secondItem="YUz-EZ-ylx" secondAttribute="trailing" constant="-8" id="Ius-X7-UE4"/>
                             <constraint firstItem="DSr-sv-bKG" firstAttribute="top" secondItem="Y2w-dt-yt6" secondAttribute="bottom" constant="10.67" id="JEr-Dn-dPP"/>
                             <constraint firstItem="AVM-cI-QDv" firstAttribute="top" secondItem="mDq-V9-xJx" secondAttribute="bottom" constant="24" id="OpZ-4t-cQw"/>
+                            <constraint firstItem="Kcu-ry-OhL" firstAttribute="firstBaseline" secondItem="DSr-sv-bKG" secondAttribute="baseline" constant="24" symbolType="layoutAnchor" id="SLv-Hn-cKV"/>
                             <constraint firstItem="Y2w-dt-yt6" firstAttribute="trailing" secondItem="YUz-EZ-ylx" secondAttribute="trailing" id="SlS-Mz-PWq"/>
                             <constraint firstItem="8iO-Ni-isJ" firstAttribute="height" secondItem="n9a-Cu-k0E" secondAttribute="height" multiplier="0.0309077" id="SyY-cL-Gc9"/>
                             <constraint firstItem="Y2w-dt-yt6" firstAttribute="height" secondItem="n9a-Cu-k0E" secondAttribute="height" multiplier="0.242958" id="T2U-V6-BRz"/>
                             <constraint firstItem="IhS-dH-huI" firstAttribute="leading" secondItem="YUz-EZ-ylx" secondAttribute="leading" id="U8O-Wm-Tkh"/>
                             <constraint firstItem="YUz-EZ-ylx" firstAttribute="trailing" secondItem="mDq-V9-xJx" secondAttribute="trailing" constant="157" id="USg-z1-yFU"/>
                             <constraint firstItem="YUz-EZ-ylx" firstAttribute="trailing" secondItem="DSr-sv-bKG" secondAttribute="trailing" constant="110" id="YuW-NH-VNi"/>
+                            <constraint firstItem="t4J-da-WMD" firstAttribute="top" secondItem="mDq-V9-xJx" secondAttribute="bottom" constant="8" symbolic="YES" id="a17-v2-Elz"/>
                             <constraint firstItem="mDq-V9-xJx" firstAttribute="top" secondItem="IhS-dH-huI" secondAttribute="bottom" constant="29.666666666666742" id="arU-qE-d6b"/>
+                            <constraint firstItem="Kcu-ry-OhL" firstAttribute="leading" secondItem="YUz-EZ-ylx" secondAttribute="leading" constant="11" id="c52-R0-Zxg"/>
                             <constraint firstItem="8iO-Ni-isJ" firstAttribute="leading" secondItem="YUz-EZ-ylx" secondAttribute="leading" constant="110.67" id="cAd-bl-I1N"/>
                             <constraint firstItem="DSr-sv-bKG" firstAttribute="leading" secondItem="YUz-EZ-ylx" secondAttribute="leading" constant="110" id="cfg-zh-V8D"/>
+                            <constraint firstItem="t4J-da-WMD" firstAttribute="leading" secondItem="YUz-EZ-ylx" secondAttribute="leading" constant="16" id="eZF-KL-jYm"/>
                             <constraint firstItem="8iO-Ni-isJ" firstAttribute="top" secondItem="YUz-EZ-ylx" secondAttribute="top" constant="12" id="g1K-hU-EBh"/>
                             <constraint firstItem="AVM-cI-QDv" firstAttribute="leading" secondItem="YUz-EZ-ylx" secondAttribute="leading" id="ksr-Tb-7IB"/>
                             <constraint firstItem="mDq-V9-xJx" firstAttribute="height" secondItem="n9a-Cu-k0E" secondAttribute="height" multiplier="0.0305164" id="nBN-5B-bMx"/>
                             <constraint firstItem="Y2w-dt-yt6" firstAttribute="top" secondItem="8iO-Ni-isJ" secondAttribute="bottom" constant="8" id="ox6-dk-xpG"/>
+                            <constraint firstItem="YUz-EZ-ylx" firstAttribute="trailing" secondItem="Kcu-ry-OhL" secondAttribute="trailing" constant="16" id="tsP-hI-dAB"/>
+                            <constraint firstItem="vUQ-Yh-Blo" firstAttribute="leading" secondItem="YUz-EZ-ylx" secondAttribute="leading" constant="16" id="xXT-FE-d67"/>
                             <constraint firstItem="IhS-dH-huI" firstAttribute="top" secondItem="DSr-sv-bKG" secondAttribute="bottom" constant="27" id="zYv-mT-Xj5"/>
                             <constraint firstItem="DSr-sv-bKG" firstAttribute="height" secondItem="n9a-Cu-k0E" secondAttribute="height" multiplier="0.0309077" id="zu9-Y4-HBD"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="UpComingErrorMessage" destination="vUQ-Yh-Blo" id="sG0-0b-fXo"/>
                         <outlet property="latestCollection" destination="IhS-dH-huI" id="8eD-si-eqz"/>
+                        <outlet property="latestErrorMessage" destination="Kcu-ry-OhL" id="c4C-NK-fav"/>
                         <outlet property="teamCollection" destination="AVM-cI-QDv" id="gbQ-le-Skp"/>
+                        <outlet property="teamErrorMessage" destination="t4J-da-WMD" id="fIV-sX-oCT"/>
                         <outlet property="teamTitle" destination="mDq-V9-xJx" id="j5n-AD-dDn"/>
                         <outlet property="upComingCollection" destination="Y2w-dt-yt6" id="z4g-7h-WYN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDq-WC-s9C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4398" y="-27"/>
+            <point key="canvasLocation" x="4396.1832061068699" y="-27.464788732394368"/>
         </scene>
         <!--Team Details View Controller-->
         <scene sceneID="n4c-IS-9EO">
@@ -748,6 +779,9 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

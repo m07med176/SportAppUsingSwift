@@ -29,6 +29,9 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     @IBOutlet weak var latestCollection: UICollectionView!
     @IBOutlet weak var teamCollection: UICollectionView!
     
+    @IBOutlet weak var UpComingErrorMessage: UILabel!
+    @IBOutlet weak var teamErrorMessage: UILabel!
+    @IBOutlet weak var latestErrorMessage: UILabel!
     
     // Response
     var dataDetailsFixture : [ResultFixture]?
@@ -43,9 +46,18 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     let teamID = (identifier:"team",nibName:"TeamsCollectionViewCell")
     let latestID = (identifier:"latest",nibName:"LatestResultCollectionViewCell")
     
-
+    // Loading Action
+    var activityIndicator = UIActivityIndicatorView(style: .large)
+    func loadingAction(){
+        activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.center = view.center
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+    }
+    
     func fetchResultFixture(result: [ResultFixture]) {
         DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
             self.dataDetailsFixture = result
             self.upComingCollection.reloadData()
             self.teamCollection.reloadData()
@@ -54,41 +66,68 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     
     func fetchResultLivescore(result: [LivescoreResult]) {
         DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
             self.dataDetailsLivescore = result
             self.latestCollection.reloadData()
         }
     }
     
+    
     func fetchErrorFixture(error: CallDataException) {
-        switch error {
-        case .mainError(let message):
-            print(message)
-            break
-        case .noFeedError(let message):
-            print(message)
-            break
-        case .noDateError(let message):
-            print(message)
-            break
-        
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            
+            self.teamErrorMessage.isHidden = true
+            self.UpComingErrorMessage.isHidden = true
+            
+            self.teamCollection.isHidden = false
+            self.UpComingErrorMessage.isHidden = false
+            
+            switch error {
+            case .mainError(let message):
+                print(message)
+                self.teamErrorMessage.text = message
+                self.UpComingErrorMessage.text = message
+
+                break
+            case .noFeedError(let message):
+                self.teamErrorMessage.text = message
+                self.UpComingErrorMessage.text = message
+
+                break
+            case .noDateError(let message):
+                self.teamErrorMessage.text = message
+                self.UpComingErrorMessage.text = message
+
+                break
+            
+            }
         }
     }
     
     func fetchErrorLivescore(error: CallDataException) {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.latestErrorMessage.isHidden = true
+            self.latestCollection.isHidden = false
 
-        switch error {
-        case .mainError(let message):
-            print(message)
-            break
-        case .noFeedError(let message):
-            print(message)
-            break
-        case .noDateError(let message):
-            print(message)
-            break
-        
+            
+            switch error {
+            case .mainError(let message):
+                self.latestErrorMessage.text = message
+                print(message)
+                break
+            case .noFeedError(let message):
+                self.latestErrorMessage.text = message
+                print(message)
+                break
+            case .noDateError(let message):
+                self.latestErrorMessage.text = message
+                print(message)
+                break
+            
+            }
         }
-
     }
     
     func callData(){
@@ -100,7 +139,11 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
         super.viewDidLoad()
         presenter = DetailsLeaguesPresenter(view: self)
         // Call Data
+        loadingAction()
         callData()
+        teamErrorMessage.isHidden = true
+        UpComingErrorMessage.isHidden = true
+        latestErrorMessage.isHidden = true
     }
     
 
