@@ -29,7 +29,6 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
     func fetchResult(result: [FavoriteTeam]) {
         favoriteItem = result
         favoriteTable.reloadData()
-        
     }
     
     func fetchError(error: CallDataException) {
@@ -52,9 +51,6 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
             break
         
         }
-        
-        
-
         alert.addAction(UIAlertAction(title: "OK", style: .cancel))
         present(alert, animated: true)
     }

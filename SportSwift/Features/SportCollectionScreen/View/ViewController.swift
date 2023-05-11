@@ -30,6 +30,7 @@ class ViewController: UIViewController , UICollectionViewDelegate ,UICollectionV
     override func viewWillAppear(_ animated: Bool) {
         connectionNetwork = CheckNetworkConnectivity.initConncetion
         connectionNetwork?.startConncetionObserver()
+        
 
     }
     
@@ -44,6 +45,7 @@ class ViewController: UIViewController , UICollectionViewDelegate ,UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         sportsArr.append(Sports(sportName: "FootBall", sportPhoto: UIImage(named: "football")!,sportType: SportsType.football))
         sportsArr.append(Sports(sportName: "BasketBall", sportPhoto: UIImage(named: "basketball")!,sportType: SportsType.basketball))
         sportsArr.append(Sports(sportName: "Cricket", sportPhoto: UIImage(named: "cricket")!,sportType: SportsType.cricket))
@@ -91,12 +93,13 @@ class ViewController: UIViewController , UICollectionViewDelegate ,UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+        return 3
+        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
+        return 5
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: self.view.frame.width * 0.493, height: self.view.frame.width * 0.49)
     }
