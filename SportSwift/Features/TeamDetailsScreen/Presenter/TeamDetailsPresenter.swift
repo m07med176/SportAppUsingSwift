@@ -39,7 +39,6 @@ class TeamDetailsPresenter{
                 if let response = self.lambdaResponse {
                     self.lambdaResponse!(success.result)
                 }
-                
                 return
                 
             case .failure(let failure):

@@ -57,7 +57,13 @@ class LeagueTableViewController: UITableViewController,LeagueDelegateView {
             self.tableView.reloadData()
         }
         
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel) { _ in
+            if let navigationController = self.navigationController {
+                navigationController.popViewController(animated: true)
+                }
+            }
+        )
+
         present(alert, animated: true)
     }
     // Loading Action
