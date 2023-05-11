@@ -82,6 +82,7 @@ class NetworkService<K:Codable> : NetworkProtocol {
             return
         }
         
+        print("MyURl: \(newUrl)")
         let req = URLRequest(url: newUrl)
 
         let session = URLSession (configuration: .default)

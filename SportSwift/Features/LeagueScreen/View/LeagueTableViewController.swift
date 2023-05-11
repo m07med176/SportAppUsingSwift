@@ -100,28 +100,18 @@ class LeagueTableViewController: UITableViewController,LeagueDelegateView {
         cell.contentView.layer.cornerRadius = 20
         cell.contentView.layer.masksToBounds = true
         
-        cell.lableItem.text = leaguesResults[indexPath.row].leagueName
+        let league = leaguesResults[indexPath.row]
+        cell.lableItem.text = league.leagueName
         
         switch sportType {
-            
-        case .football :
-            let str = leaguesResults[indexPath.row].leagueLogo
-            let predicate = NSPredicate(format:"SELF ENDSWITH[c] %@", ".png")
-            let result = predicate.evaluate(with: str)
-            
-            if result{
-                let url = URL(string: str!)
-                cell.imageItem.kf.setImage(with: url)
-            }else{
-                cell.imageItem.image = UIImage(named: ImagesAssets.football.rawValue)
-            }
-        case .basketball :
-            cell.imageItem.image = UIImage(named: ImagesAssets.basketball.rawValue)
-        case .cricket :
-            cell.imageItem.image = UIImage(named: ImagesAssets.cricket.rawValue)
-        case .tennis :
-            cell.imageItem.image = UIImage(named: ImagesAssets.tennis.rawValue)
-
+        case .football:
+            ImageDownloader.setImage(image: cell.imageItem, url: URL(string: league.leagueLogo ?? PlaceHolders.footballPlaceHolder)!)
+        case .basketball:
+            ImageDownloader.setImage(image: cell.imageItem, url: URL(string: league.leagueLogo ?? PlaceHolders.basketballPlaceHolder)!)
+        case .cricket:
+            ImageDownloader.setImage(image: cell.imageItem, url: URL(string: league.leagueLogo ?? PlaceHolders.cricketPlaceHolder)!)
+        case .tennis:
+            ImageDownloader.setImage(image: cell.imageItem, url: URL(string: league.leagueLogo ?? PlaceHolders.tennisPlaceHolder)!)
         }
         
         return cell

@@ -18,16 +18,36 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
     
     var presenter:FavoritePresenter?
     
-    var favoriteItem:[FavoriteTeam] = []
+    var favoriteItemFootball:[FavoriteTeam] = []
+    var favoriteItemTennis:[FavoriteTeam] = []
+    var favoriteItemBasketball:[FavoriteTeam] = []
+    var favoriteItemCricket:[FavoriteTeam] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = FavoritePresenter(view: self)
+        self.title = "Favorite Teams"
     }
 
   
     func fetchResult(result: [FavoriteTeam]) {
-        favoriteItem = result
+        favoriteItemFootball = result.filter({ item in
+            item.sport == SportsType.football.rawValue
+        })
+        
+        favoriteItemTennis = result.filter({ item in
+            item.sport == SportsType.tennis.rawValue
+        })
+        
+        favoriteItemCricket = result.filter({ item in
+            item.sport == SportsType.cricket.rawValue
+        })
+        
+        favoriteItemBasketball = result.filter({ item in
+            item.sport == SportsType.basketball.rawValue
+        })
+        
+        
         favoriteTable.reloadData()
     }
     
@@ -46,7 +66,10 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
             break
         case .noDateError(let message):
             alert.title = message
-            favoriteItem = []
+            favoriteItemTennis = []
+            favoriteItemFootball = []
+            favoriteItemBasketball = []
+            favoriteItemCricket = []
             favoriteTable.reloadData()
             break
         
@@ -63,8 +86,23 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let favoritePlayer = favoriteItem[indexPath.row]
-        
+        switch indexPath.section{
+            case 0:
+                navigateToNextScreen(favoritePlayer: self.favoriteItemFootball[indexPath.row])
+            case 1:
+                navigateToNextScreen(favoritePlayer: self.favoriteItemBasketball[indexPath.row])
+            case 2:
+                navigateToNextScreen(favoritePlayer: self.favoriteItemTennis[indexPath.row])
+            case 3:
+                navigateToNextScreen(favoritePlayer: self.favoriteItemCricket[indexPath.row])
+            default:
+                break
+        }
+
+    }
+    
+    
+    func navigateToNextScreen(favoritePlayer:FavoriteTeam){
         let teamScreen = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
         
         switch favoritePlayer.sport{
@@ -89,38 +127,77 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
         
         self.navigationController?.pushViewController(teamScreen, animated: true)
     }
-    
     // DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteItem.count 
+        switch section{
+        case 0:
+            return favoriteItemFootball.count
+        case 1:
+            return favoriteItemBasketball.count
+        case 2:
+            return favoriteItemTennis.count
+        case 3:
+            return favoriteItemCricket.count
+        
+        default:
+            return 0
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = favoriteTable.dequeueReusableCell(withIdentifier: "favoritecell") as! FavoriteTeamsTableViewCell
 
-        let favoritePlayer = favoriteItem[indexPath.row]
-        cell.FavoriteTeamName.text = favoritePlayer.name
-        cell.FavoriteTeamImage.kf.setImage(with: URL(string: favoritePlayer.logo ))
+        switch indexPath.section{
+        case 0:
+            cell.updateData(player: favoriteItemFootball[indexPath.row])
+            return cell
+        case 1:
+            cell.updateData(player: favoriteItemBasketball[indexPath.row])
+            return cell
+        case 2:
+            cell.updateData(player: favoriteItemTennis[indexPath.row])
+            return cell
+        case 3:
+            cell.updateData(player: favoriteItemCricket[indexPath.row])
+            return cell
 
-        cell.FavoriteTeamView.layer.cornerRadius = cell.contentView.frame.height / 2.5
-        cell.FavoriteTeamImage.layer.cornerRadius = cell.FavoriteTeamImage.frame.height / 2.5
+        default:
+            return cell
+        }
+        
+
+        
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
-            // Remove the corresponding data item from your data source
-            let favoritePlayer = favoriteItem[indexPath.row]
-
             // Create an alert controller
-            let alert = UIAlertController(title: "Remove Team", message: "Are you sure you want to remove \(favoritePlayer.name) from favorites?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Remove Team", message: "Are you sure you want to remove it?", preferredStyle: .alert)
             
             // Add actions to the alert controller
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { _ in
                 
-                self.presenter?.deleteData(item: favoritePlayer)
+                switch indexPath.section{
+                case 0:
+                    self.presenter?.deleteData(item: self.favoriteItemFootball[indexPath.row])
+                case 1:
+                    self.presenter?.deleteData(item: self.favoriteItemBasketball[indexPath.row])
+                case 2:
+                    self.presenter?.deleteData(item: self.favoriteItemTennis[indexPath.row])
+                case 3:
+                    self.presenter?.deleteData(item: self.favoriteItemCricket[indexPath.row])
+                default:
+                    break
+                }
+                
                 self.presenter?.fetchData()
             }))
             
@@ -136,7 +213,20 @@ class FavoriteTeamsTableViewController: UIViewController,UITableViewDataSource, 
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection
                                 section: Int) -> String? {
-       return "Favorites"
+        switch section{
+        case 0:
+            return "Football Favorites"
+        case 1:
+            return "Basketball Favorite"
+        case 2:
+            return "Tennis Favorite"
+        case 3:
+            return "Cricket Favorite"
+        
+        default:
+            return "Favorite"
+        }
+       
     }
     
 }

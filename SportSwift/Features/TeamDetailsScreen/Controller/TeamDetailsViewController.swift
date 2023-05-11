@@ -62,7 +62,7 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
                 teamName.text = teamDetails.team_name
                 let url = URL(string: (teamDetails.team_logo)!)
                 teamImg.kf.setImage(with: url)
-                playesList = teamDetails.players
+                playesList = teamDetails.players ?? []
                 self.activityIndicator.stopAnimating()
                 playersTable.reloadData()
                 
@@ -130,40 +130,8 @@ class TeamDetailsViewController: UIViewController,UITableViewDataSource,UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "playerscell", for: indexPath) as! TeamTableViewCell
-        
-        cell.contentView.layer.cornerRadius = 20
-        cell.contentView.layer.masksToBounds = true
-        
         let player =  playesList[indexPath.row]
-        cell.playerName.text = player.player_name
-        cell.playerNumber.text = player.player_number
-        
-        //MARK: - predicate
-        let string = player.player_image
-        let predicate = NSPredicate(format:"SELF ENDSWITH[c] %@", ".jpg")
-        let result = predicate.evaluate(with: string)
-                print(result) // true
-        
-        if result{
-            let url = URL(string: (player.player_image)!)
-            cell.playerImg.kf.setImage(with: url)
-        }else
-        {
-            switch sportType {
-            case .football:
-                cell.playerImg.image = UIImage(named: "football")
-
-            case .basketball:
-                cell.playerImg.image = UIImage(named: "basketball")
-
-            case .cricket:
-                cell.playerImg.image = UIImage(named: "cricket")
-
-            case .tennis:
-                cell.playerImg.image = UIImage(named: "tennis")
-
-            }
-        }
+        cell.updateData(player: player, sportType: sportType)
         
         return cell
     }

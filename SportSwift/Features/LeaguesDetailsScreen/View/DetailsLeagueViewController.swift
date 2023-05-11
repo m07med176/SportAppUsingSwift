@@ -7,8 +7,6 @@
 
 
 import UIKit
-
-
 protocol DetailsLeaguesDelegateView{
     func fetchResultFixture(result: [ResultFixture])
     func fetchResultLivescore(result: [LivescoreResult])
@@ -46,6 +44,8 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     let teamID = (identifier:"team",nibName:"TeamsCollectionViewCell")
     let latestID = (identifier:"latest",nibName:"LatestResultCollectionViewCell")
     
+    
+
     // Loading Action
     var activityIndicator = UIActivityIndicatorView(style: .large)
     func loadingAction(){
@@ -148,109 +148,43 @@ class DetailsLeagueViewController: UIViewController,UICollectionViewDelegate , U
     
 
     
+    func handleTeamCollcectionView(cell:TeamsCollectionViewCell,cellForItemAt indexPath: IndexPath)-> UICollectionViewCell{
+        let team = dataDetailsFixture?[indexPath.row]
+        cell.updateData(item: team ?? ResultFixture(), sportType: sportType)
+        if sportType == .tennis{
+            teamTitle.text = "Players"
+        }
+
+        return cell
+    }
+    
+    
+    func handleUpComingCollectionView(cell:UpComingCollectionViewCell,cellForItemAt indexPath: IndexPath)-> UICollectionViewCell{
+        let team = dataDetailsFixture?[indexPath.row]
+        cell.updateData(item: team ?? ResultFixture(),sportType: sportType)
+        return cell
+    }
+    
+    func handleLatestCollectionView(cell:LatestResultCollectionViewCell,cellForItemAt indexPath: IndexPath)-> UICollectionViewCell{
+        let team = dataDetailsLivescore?[indexPath.row]
+        cell.updateData(item: team!,sportType: sportType)
+        return cell
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-  
         if collectionView == teamCollection{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "team", for: indexPath) as! TeamsCollectionViewCell
-            let team = dataDetailsFixture?[indexPath.row]
-            
-            switch sportType {
-            case .football:
-                let url = URL(string: (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png")
-                cell.teamImage.kf.setImage(with: url)
-                
-            case .basketball , .cricket:
-                let url = URL(string: (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png")
-                cell.teamImage.kf.setImage(with: url)
-                
-            case .tennis:
-                teamTitle.text = "Players"
-                let url = URL(string: (team?.event_first_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg")
-                cell.teamImage.kf.setImage(with: url)
-            }
-            
-            return cell
+            return handleTeamCollcectionView(cell:cell,cellForItemAt: indexPath)
         }
-        
-        
-        
         
         if collectionView == upComingCollection{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcoming", for: indexPath) as! UpComingCollectionViewCell
-            let team = dataDetailsFixture?[indexPath.row]
-            cell.layer.borderColor = UIColor.darkGray.cgColor
-            cell.layer.borderWidth = 0.5
-            switch sportType {
-            case .football :
-                // FootBall
-                break
-            case .basketball :
-                // BasketBall
-//                team?.home_team_logo = (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-                //                team?.away_team_logo  = (team?.away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-                break
-            case .cricket:
-                //Cricket
-                //                team?.home_team_logo = (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-                //                team?.away_team_logo  = (team?.event_away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-                break
-                
-            case .tennis :
-                //tennis
-                //                team?.home_team_logo = (team?.event_first_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
-                //                team?.away_team_logo  = (team?.event_second_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
-                break
-                
-                
-            }
-            
-            cell.updateData(item: team ?? ResultFixture())
-            return cell
+            return handleUpComingCollectionView(cell: cell, cellForItemAt: indexPath)
         }
         
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latest", for: indexPath) as! LatestResultCollectionViewCell
-            // let team = dataDetails?[indexPath.row + 20 ]
-            cell.layer.borderColor = UIColor.darkGray.cgColor
-            cell.layer.borderWidth = 0.3
-            
-        let team = dataDetailsLivescore?[indexPath.row]
-            switch sportType {
-                // FootBall
-            case .football:
-                
-//                team?.home_team_logo =  (team?.home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-//                team?.away_team_logo =  (team?.away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-                cell.updateData(item: team!)
-                
-                // Basketball
-            case .basketball:
-//                team?.home_team_logo =  (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-//                team?.away_team_logo =  (team?.event_away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-                cell.updateData(item: team!)
-                
-                //Cricket
-            case .cricket:
-//                team?.home_team_logo =  (team?.event_home_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-//                team?.away_team_logo =  (team?.event_away_team_logo) ?? "https://goplexe.org/wp-content/uploads/2020/04/placeholder-1.png"
-                cell.updateData(item: team!)
-                
-                //tennis
-            case .tennis:
-
-//                team?.home_team_logo =  (team?.event_first_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
-//                team?.away_team_logo =  (team?.event_second_player_logo) ?? "https://i.ibb.co/G9YtDLp/tennis.jpg"
-                cell.updateData(item: team!)
-                
-        
-       
-        }
-
-        
-        return cell
-
-     
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latest", for: indexPath) as! LatestResultCollectionViewCell
+        return handleLatestCollectionView(cell: cell, cellForItemAt: indexPath)
     }
     
     
